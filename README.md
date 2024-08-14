@@ -18,14 +18,17 @@ AIの力を借りて、コードの品質向上を目指し、より効率的な
   - **翻訳**: 選択したテキストをAIに翻訳してもらえます。
 - **対応API**: 以下のAPIが利用可能です。
   - OpenAI
-  - Claude3
+  - Claude
+  - Gemini
   - Ollama (ローカルで起動できる言語モデル(LLM)サーバー)
 
 ## AIの利用には利用料金がかかります
 
 OpenAIとClaude3のAPIは利用料金がかかります。  
+Geminiはプランにより制限の多い無料プラン、制限が緩和された有料プランがあります。
 Ollamaはローカルに大規模言語モデルのサーバーを立てるため無料で利用できますが、他の2つと比べると精度が著しく低く、
-本格的に利用するには、OpenAIのGPT-4、またはClaude3のsonnet以上のモデルを使用するのがよいでしょう。
+本格的に利用するには、他のAIを利用するのがよいでしょう。  
+Geminiの無料プランでもgemini-1.5-flashは制限も軽く利用しやすいです。ただし無料プランは学習される可能性があるため、パスワードなどが紛れ込まないように注意してください。
 
 # VSCodeのインストール方法
 
@@ -100,6 +103,20 @@ OpenAIとClaude3のAPIの利用には料金がかかります。
 1. メニューの"API Keys"から、"Create Key"で発行します。
    発行したキーは2度と確認することができないので大切に保存してください。  
 
+## Google(Gemini)の場合
+
+### アカウントの作成
+
+1. [Google](https://www.google.co.jp/)のアカウントを使います。アカウントが未作成の場合は、ログイン > アカウントの作成を行います。
+
+### APIキーの発行
+1. (Google AI Studio)[https://aistudio.google.com/]へアクセスし、`Get API Key`を選択します。
+2. APIキーを作成 > 新しいプロジェクトでAPIキーを作成 を選択することで、APIキーが発行されます。
+
+### 支払いの設定
+1. Settings > Plan Information から作成したプロジェクトのプランを有料に変更することができます。
+2. 支払いはリンク先からGoogleアカウントを選択し、アカウントに紐づけられた支払い設定が利用できます。
+
 # CodeWhiskerの使い方
 
 ## CodeWhiskerの設定
@@ -144,7 +161,8 @@ VSCodeのサイドバーから、CodeWhiskerを選択するとサイドバーが
 OpenAI
 | Model                  | 入力   | 出力    |おすすめ|
 |------------------------|-------:|--------:|:-------:
-| gpt-4o                 |  $5.00 |  $15.00 | 〇     |
+| gpt-4o                 |  $5.00 |  $15.00 |        |
+| gpt-4o-2024-08-06      |  $2.50 |  $10.00 | 〇     |
 | gpt-4o-mini            |  $0.15 |   $0.6  |        |
 | gpt-4-turbo-2024-04-09 | $10.00 |  $30.00 |        |
 | gpt-4-0125-preview     | $10.00 |  $30.00 |        |
@@ -160,6 +178,13 @@ Anthropic(Claude)
 | Claude 3 Opus     | $15.00 |  $75.00 |        |
 | Claude 3 Sonnet   |  $3.00 |  $15.00 |        |
 | Claude 3 Haiku    |  $0.25 |   $1.25 |        |
+
+Google(Gemini)
+| Model                   | 入力   | 出力    |おすすめ|
+|-------------------------|-------:|--------:|:-------:
+| gemini-1.5-pro          |  $3.50 |   $7.00 |        |
+| gemini-1.5-pro-exp-0801 |  $3.50 |   $7.00 | 〇     |
+| gemini-1.5-flash        |  $0.35 |   $0.70 |        |
 
 # ローカルLLM実行環境Ollamaの環境構築方法
 自分のパソコンにAIモデルをインストールし、それを利用することも可能です。  
@@ -178,6 +203,6 @@ Dockerも対応しています。
 # 起動
 $ docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
 
-# AIモデルのダウンロード、モデル名はphi3 / llamma2 / llama3
+# AIモデルのダウンロード、モデル名はphi3 / llamma2 / llama3 / gemma2:2b
 $ docker exec -it ollama /bin/bash -c "ollama pull [モデル名]"
 ```
